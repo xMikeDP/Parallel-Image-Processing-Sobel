@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// Sequential
+// Sequential sobel algorithm
 void sobelSequential(const cv::Mat& input, cv::Mat& output) {
     int rows = input.rows;
     int cols = input.cols;
