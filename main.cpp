@@ -48,6 +48,18 @@ int main() {
     cout << "OpenMP Time (" << threads << " threads): " << ompTime.count() << " ms" << endl;
     cout << "OpenMP Speedup: " << (seqTime.count() / ompTime.count()) << "x\n" << endl;
 
+    // Intel TBB
+    start = chrono::high_resolution_clock::now();
+    for (auto& image : images) {
+        cv::Mat input = cv::imread(image, cv::IMREAD_GRAYSCALE);
+        cv::Mat output = cv::Mat::zeros(input.size(), input.type());
+        sobelTBB(input, output);
+    }
+    end = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> tbbTime = end - start;
+    cout << "Intel TBB Time (" << threads << " threads): " << tbbTime.count() << " ms" << endl;
+    cout << "Intel TBB Speedup: " << (seqTime.count() / tbbTime.count()) << "x\n" << endl;
+
 
     return 0;
 }
